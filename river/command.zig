@@ -65,6 +65,7 @@ const command_impls = std.ComptimeStringMap(
         .{ "list-input-configs",        @import("command/input.zig").listInputConfigs},
         .{ "list-inputs",               @import("command/input.zig").listInputs },
         .{ "list-rules",                @import("command/rule.zig").listRules},
+        .{ "list-views",                @import("command/view.zig").listViews},
         .{ "map",                       @import("command/map.zig").map },
         .{ "map-pointer",               @import("command/map.zig").mapPointer },
         .{ "map-switch",                @import("command/map.zig").mapSwitch },
