@@ -16,8 +16,8 @@ pub fn listViews(_: *Seat, _: []const [:0]const u8, out: *?[]const u8) Error!voi
     var maxIdSize: usize = 10;
     var maxTitleSize: usize = 10;
     while (it.next()) |view| {
-        var id = std.mem.span(view.getAppId()) orelse "";
-        var title = std.mem.span(view.getTitle()) orelse "";
+        const id = std.mem.span(view.getAppId()) orelse "";
+        const title = std.mem.span(view.getTitle()) orelse "";
 
         try list.append(.{ .id = id, .title = title });
         if (id.len > maxIdSize) maxIdSize = id.len;
@@ -27,13 +27,13 @@ pub fn listViews(_: *Seat, _: []const [:0]const u8, out: *?[]const u8) Error!voi
     maxIdSize += 1;
     maxTitleSize += 1;
 
-    try std.fmt.formatBuf("app-id", .{ .width = maxIdSize, .alignment = .Left }, writer);
-    try std.fmt.formatBuf("title", .{ .width = maxTitleSize, .alignment = .Left }, writer);
+    try std.fmt.formatBuf("app-id", .{ .width = maxIdSize, .alignment = .left }, writer);
+    try std.fmt.formatBuf("title", .{ .width = maxTitleSize, .alignment = .left }, writer);
     for (list.items) |ele| {
         try writer.print("\n", .{});
-        try std.fmt.formatBuf(ele.id, .{ .width = maxIdSize, .alignment = .Left }, writer);
-        try std.fmt.formatBuf(ele.title, .{ .width = maxTitleSize, .alignment = .Left }, writer);
+        try std.fmt.formatBuf(ele.id, .{ .width = maxIdSize, .alignment = .left }, writer);
+        try std.fmt.formatBuf(ele.title, .{ .width = maxTitleSize, .alignment = .left }, writer);
     }
 
-    out.* = buffer.toOwnedSlice();
+    out.* = try buffer.toOwnedSlice();
 }
